@@ -14,30 +14,30 @@
  * @author     Bill Zimmerman <billzimmerman@gmail.com>
  * @license    GNU General Public License, version 3 (GPL-3.0)
  * @version    1.1
- * @link       https://github.com/billz/raspap-webgui
- * @see        http://sirlagz.net/2013/02/08/raspap-webgui/
+ * @link       https://github.com/billz/chipap-webgui
+ * @see        http://sirlagz.net/2013/02/08/chipap-webgui/
  */
 
-define('RASPI_CONFIG', '/etc/raspap');
-define('RASPI_ADMIN_DETAILS', RASPI_CONFIG.'/raspap.auth');
+define('CHIP_CONFIG', '/etc/chipap');
+define('CHIP_ADMIN_DETAILS', CHIP_CONFIG.'/chipap.auth');
 
 // Constants for configuration file paths.
 // These are typical for default RPi installs. Modify if needed.
-define('RASPI_DNSMASQ_CONFIG', '/etc/dnsmasq.conf');
-define('RASPI_DNSMASQ_LEASES', '/var/lib/misc/dnsmasq.leases');
-define('RASPI_HOSTAPD_CONFIG', '/etc/hostapd/hostapd.conf');
-define('RASPI_WPA_SUPPLICANT_CONFIG', '/etc/wpa_supplicant/wpa_supplicant.conf');
-define('RASPI_HOSTAPD_CTRL_INTERFACE', '/var/run/hostapd');
-define('RASPI_WPA_CTRL_INTERFACE', '/var/run/wpa_supplicant');
-define('RASPI_OPENVPN_CLIENT_CONFIG', '/etc/openvpn/client.conf');
-define('RASPI_OPENVPN_SERVER_CONFIG', '/etc/openvpn/server.conf');
-define('RASPI_TORPROXY_CONFIG', '/etc/tor/torrc');
+define('CHIP_DNSMASQ_CONFIG', '/etc/dnsmasq.conf');
+define('CHIP_DNSMASQ_LEASES', '/var/lib/misc/dnsmasq.leases');
+define('CHIP_HOSTAPD_CONFIG', '/etc/hostapd/hostapd.conf');
+define('CHIP_WPA_SUPPLICANT_CONFIG', '/etc/wpa_supplicant/wpa_supplicant.conf');
+define('CHIP_HOSTAPD_CTRL_INTERFACE', '/var/run/hostapd');
+define('CHIP_WPA_CTRL_INTERFACE', '/var/run/wpa_supplicant');
+define('CHIP_OPENVPN_CLIENT_CONFIG', '/etc/openvpn/client.conf');
+define('CHIP_OPENVPN_SERVER_CONFIG', '/etc/openvpn/server.conf');
+define('CHIP_TORPROXY_CONFIG', '/etc/tor/torrc');
 
 // Optional services, set to true to enable.
-define('RASPI_OPENVPN_ENABLED', true );
-define('RASPI_TORPROXY_ENABLED', false );
+define('CHIP_OPENVPN_ENABLED', true );
+define('CHIP_TORPROXY_ENABLED', false );
 
-include_once( RASPI_CONFIG.'/raspap.php' );
+include_once( CHIP_CONFIG.'/chipap.php' );
 include_once( 'includes/functions.php' );
 include_once( 'includes/dashboard.php' );
 include_once( 'includes/authenticate.php' );
@@ -133,12 +133,12 @@ $csrf_token = $_SESSION['csrf_token'];
               <li>
                 <a href="index.php?page=dhcpd_conf"><i class="fa fa-exchange fa-fw"></i> Configure DHCP</a>
               </li>
-              <?php if ( RASPI_OPENVPN_ENABLED ) : ?>
+              <?php if ( CHIP_OPENVPN_ENABLED ) : ?>
               <li>
                 <a href="index.php?page=openvpn_conf"><i class="fa fa-lock fa-fw"></i> Configure OpenVPN</a>
               </li>
               <?php endif; ?>
-              <?php if ( RASPI_TORPROXY_ENABLED ) : ?>
+              <?php if ( CHIP_TORPROXY_ENABLED ) : ?>
               <li>
                  <a href="index.php?page=torproxy_conf"><i class="fa fa-eye-slash fa-fw"></i> Configure TOR proxy</a>
               </li>
@@ -160,7 +160,7 @@ $csrf_token = $_SESSION['csrf_token'];
         <div class="row">
           <div class="col-lg-12">
             <h1 class="page-header">
-              <img class="logo" src="img/raspAP-logo.png" width="45" height="45">CHIP
+              <img class="logo" src="img/chipAP-logo.png" width="45" height="45">CHIP
             </h1>
           </div>
         </div><!-- /.row -->
