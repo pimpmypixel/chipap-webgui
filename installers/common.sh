@@ -1,15 +1,7 @@
 chipap_dir="/etc/chipap"
 chipap_user="www-data"
 version=`cat /etc/debian_version`
-
-# Determine version and set default home location for lighttpd 
-if [ $version == "8.0" ]; then
-    echo "Raspian verison is 8.0 Jessie"
-    webroot_dir="/var/www/html"
-elif [ $version == "7.8" ]; then
-    echo "Raspian version is 7.8 Wheezy"
-    webroot_dir="/var/www"
-fi
+webroot_dir="/var/www/html"
 
 # Outputs a RaspAP INSTALL log line
 function install_log() {
