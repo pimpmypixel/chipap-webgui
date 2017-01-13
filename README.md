@@ -32,7 +32,7 @@ After you complete the intial setup, you'll be able to administer these services
 ## Quick installer
 Install RaspAP from your RaspberryPi's shell prompt:
 ```sh
-$ wget -q hhttps://git.io/vMaxC -O /tmp/raspap && bash /tmp/raspap
+$ wget -q https://git.io/vMaxC -O /tmp/chipap && bash /tmp/chipap
 ```
 The installer will complete the steps in the manual installation (below) for you.
 
