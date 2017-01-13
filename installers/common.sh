@@ -30,7 +30,7 @@ function config_installation() {
     echo -n "Install directory [${chipap_dir}]: "
     read input
     if [ ! -z "$input" ]; then
-        raspap_dir="$input"
+        chipap_dir="$input"
     fi
 
     echo -n "Complete installation with these values? [y/N]: "
