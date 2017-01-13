@@ -1,5 +1,5 @@
 UPDATE_URL="https://raw.githubusercontent.com/pimpmypixel/chipap-webgui/master/"
-wget -q ${UPDATE_URL}/installers/common.sh -O /tmp/chippcommon.sh
+wget -q ${UPDATE_URL}/installers/common.sh -O /tmp/chipapcommon.sh
 source /tmp/chipapcommon.sh && rm -f /tmp/chipapcommon.sh
 
 function update_system_packages() {
