@@ -1,6 +1,6 @@
-UPDATE_URL="https://raw.githubusercontent.com/billz/raspap-webgui/master/"
-wget -q ${UPDATE_URL}/installers/common.sh -O /tmp/raspapcommon.sh
-source /tmp/raspapcommon.sh && rm -f /tmp/raspapcommon.sh
+UPDATE_URL="https://raw.githubusercontent.com/pimpmypixel/chipap-webgui/master/"
+wget -q ${UPDATE_URL}/installers/common.sh -O /tmp/chippcommon.sh
+source /tmp/chipapcommon.sh && rm -f /tmp/chipapcommon.sh
 
 function update_system_packages() {
     install_log "Updating sources"
@@ -12,4 +12,4 @@ function install_dependencies() {
     sudo apt-get install lighttpd php5-cgi git hostapd dnsmasq || install_error "Unable to install dependencies"
 }
 
-install_raspap
+install_chipap

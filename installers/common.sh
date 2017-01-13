@@ -1,5 +1,5 @@
-raspap_dir="/etc/raspap"
-raspap_user="www-data"
+chipap_dir="/etc/chipap"
+chipap_user="www-data"
 version=`cat /etc/debian_version`
 
 # Determine version and set default home location for lighttpd 
@@ -13,12 +13,12 @@ fi
 
 # Outputs a RaspAP INSTALL log line
 function install_log() {
-    echo -e "\033[1;32mRaspAP INSTALL: $*\033[m"
+    echo -e "\033[1;32mChipAP INSTALL: $*\033[m"
 }
 
 # Outputs a RaspAP INSTALL ERROR log line and exits with status code 1
 function install_error() {
-    echo -e "\033[1;37;41mRaspAP INSTALL ERROR: $*\033[m"
+    echo -e "\033[1;37;41mChipAP INSTALL ERROR: $*\033[m"
     exit 1
 }
 
@@ -27,7 +27,7 @@ function install_error() {
 
 function config_installation() {
     install_log "Configure installation"
-    echo -n "Install directory [${raspap_dir}]: "
+    echo -n "Install directory [${chipap_dir}]: "
     read input
     if [ ! -z "$input" ]; then
         raspap_dir="$input"
@@ -62,14 +62,14 @@ function enable_php_lighttpd() {
 }
 
 # Verifies existence and permissions of RaspAP directory
-function create_raspap_directories() {
-    install_log "Creating RaspAP directories"
-    if [ -d "$raspap_dir" ]; then
-        sudo mv $raspap_dir $raspap_dir.original || install_error "Unable to move old '$raspap_dir' out of the way"
+function create_chipap_directories() {
+    install_log "Creating ChipAP directories"
+    if [ -d "$chipap_dir" ]; then
+        sudo mv $chipap_dir $chipap_dir.original || install_error "Unable to move old '$chipap_dir' out of the way"
     fi
-    sudo mkdir -p "$raspap_dir" || install_error "Unable to create directory '$raspap_dir'"
+    sudo mkdir -p "$chipap_dir" || install_error "Unable to create directory '$chipap_dir'"
 
-    sudo chown -R $raspap_user:$raspap_user "$raspap_dir" || install_error "Unable to change file ownership for '$raspap_dir'"
+    sudo chown -R $chipap_user:$chipap_user "$chipap_dir" || install_error "Unable to change file ownership for '$chipap_dir'"
 }
 
 # Fetches latest files from github to webroot
@@ -79,8 +79,8 @@ function download_latest_files() {
     fi
 
     install_log "Cloning latest files from github"
-    git clone https://github.com/billz/raspap-webgui /tmp/raspap-webgui || install_error "Unable to download files from github"
-    sudo mv /tmp/raspap-webgui $webroot_dir || install_error "Unable to move raspap-webgui to web root"
+    git clone https://github.com/pimpmypixel/chipap-webgui /tmp/chipap-webgui || install_error "Unable to download files from github"
+    sudo mv /tmp/chipap-webgui $webroot_dir || install_error "Unable to move chipap-webgui to web root"
 }
 
 # Sets files ownership in web root directory
@@ -90,18 +90,18 @@ function change_file_ownership() {
     fi
 
     install_log "Changing file ownership in web root directory"
-    sudo chown -R $raspap_user:$raspap_user "$webroot_dir" || install_error "Unable to change file ownership for '$webroot_dir'"
+    sudo chown -R $chipap_user:$chipap_user "$webroot_dir" || install_error "Unable to change file ownership for '$webroot_dir'"
 }
 
 # Move configuration file to the correct location
 function move_config_file() {
-    if [ ! -d "$raspap_dir" ]; then
-        install_error "'$raspap_dir' directory doesn't exist"
+    if [ ! -d "$chipap_dir" ]; then
+        install_error "'$chipap_dir' directory doesn't exist"
     fi
 
-    install_log "Moving configuration file to '$raspap_dir'"
-    sudo mv "$webroot_dir"/raspap.php "$raspap_dir" || install_error "Unable to move files to '$raspap_dir'"
-    sudo chown -R $raspap_user:$raspap_user "$raspap_dir" || install_error "Unable to change file ownership for '$raspap_dir'"
+    install_log "Moving configuration file to '$chipap_dir'"
+    sudo mv "$webroot_dir"/chipap.php "$chipap_dir" || install_error "Unable to move files to '$chipap_dir'"
+    sudo chown -R $chipap_user:$chipap_user "$chipap_dir" || install_error "Unable to change file ownership for '$chipap_dir'"
 }
 
 # Set up default configuration
@@ -156,12 +156,12 @@ function install_complete() {
     sudo shutdown -r now || install_error "Unable to execute shutdown"
 }
 
-function install_raspap() {
+function install_chipap() {
     config_installation
     update_system_packages
     install_dependencies
     enable_php_lighttpd
-    create_raspap_directories
+    create_chipap_directories
     download_latest_files
     change_file_ownership
     move_config_file
