@@ -9,7 +9,7 @@ function DisplayWPAConfig(){
   $scanned_networks = array();
 
   // Find currently configured networks
-  exec(' sudo cat ' . RASPI_WPA_SUPPLICANT_CONFIG, $known_return);
+  exec(' sudo cat ' . CHIP_WPA_SUPPLICANT_CONFIG, $known_return);
 
   $network = null;
   $ssid = null;
@@ -49,7 +49,7 @@ function DisplayWPAConfig(){
   if ( isset($_POST['client_settings']) && CSRFValidate() ) {
     $tmp_networks = $networks;
     if ($wpa_file = fopen('/tmp/wifidata', 'w')) {
-      fwrite($wpa_file, 'ctrl_interface=DIR=' . RASPI_WPA_CTRL_INTERFACE . ' GROUP=netdev' . PHP_EOL);
+      fwrite($wpa_file, 'ctrl_interface=DIR=' . CHIP_WPA_CTRL_INTERFACE . ' GROUP=netdev' . PHP_EOL);
       fwrite($wpa_file, 'update_config=1' . PHP_EOL);
 
       foreach(array_keys($_POST) as $post) {
@@ -89,7 +89,7 @@ function DisplayWPAConfig(){
       }
 
       if ($ok) {
-        system( 'sudo cp /tmp/wifidata ' . RASPI_WPA_SUPPLICANT_CONFIG, $returnval );
+        system( 'sudo cp /tmp/wifidata ' . CHIP_WPA_SUPPLICANT_CONFIG, $returnval );
         if( $returnval == 0 ) {
           exec('sudo wpa_cli reconfigure', $reconfigure_out, $reconfigure_return );
           if ($reconfigure_return == 0) {

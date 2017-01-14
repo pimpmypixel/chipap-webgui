@@ -134,8 +134,8 @@ function ConvertToSecurity( $security ) {
 */
 function DisplayOpenVPNConfig() {
 
-	exec( 'cat '. RASPI_OPENVPN_CLIENT_CONFIG, $returnClient );
-	exec( 'cat '. RASPI_OPENVPN_SERVER_CONFIG, $returnServer );
+	exec( 'cat '. CHIP_OPENVPN_CLIENT_CONFIG, $returnClient );
+	exec( 'cat '. CHIP_OPENVPN_SERVER_CONFIG, $returnServer );
 	exec( 'pidof openvpn | wc -l', $openvpnstatus);
 
 	if( $openvpnstatus[0] == 0 ) {
@@ -265,7 +265,7 @@ function DisplayOpenVPNConfig() {
 */
 function DisplayTorProxyConfig(){
 
-	exec( 'cat '. RASPI_TORPROXY_CONFIG, $return );
+	exec( 'cat '. CHIP_TORPROXY_CONFIG, $return );
 	exec( 'pidof tor | wc -l', $torproxystatus);
 
 	if( $torproxystatus[0] == 0 ) {

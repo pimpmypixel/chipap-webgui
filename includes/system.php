@@ -6,37 +6,22 @@
 *
 */
 
-function RPiVersion() {
-  // Lookup table from http://www.raspberrypi-spy.co.uk/2012/09/checking-your-raspberry-pi-board-version/
-  $revisions = array(
-    '0002' => 'Model B Revision 1.0',
-    '0003' => 'Model B Revision 1.0 + ECN0001',
-    '0004' => 'Model B Revision 2.0 (256 MB)',
-    '0005' => 'Model B Revision 2.0 (256 MB)',
-    '0006' => 'Model B Revision 2.0 (256 MB)',
-    '0007' => 'Model A',
-    '0008' => 'Model A',
-    '0009' => 'Model A',
-    '000d' => 'Model B Revision 2.0 (512 MB)',
-    '000e' => 'Model B Revision 2.0 (512 MB)',
-    '000f' => 'Model B Revision 2.0 (512 MB)',
-    '0010' => 'Model B+',
-    '0013' => 'Model B+',
-    '0011' => 'Compute Module',
-    '0012' => 'Model A+',
-    'a01041' => 'a01041',
-    'a21041' => 'a21041',
-    '900092' => 'PiZero',
-    'a02082' => 'Pi 3 Model B',
-    'a22082' => 'Pi 3 Model B'
-  );
-  exec('cat /proc/cpuinfo', $cpuinfo_array);
-  $rev = trim(array_pop(explode(':',array_pop(preg_grep("/^Revision/", $cpuinfo_array)))));
-  if (array_key_exists($rev, $revisions)) {
-    return $revisions[$rev];
-  } else {
-    return 'Unknown Pi';
-  }
+function ChipVersion() {
+exec('cat /proc/cpuinfo', $cpuinfo_array);
+    foreach ($cpuinfo_array as $key => $value) {
+     $value = explode(':', $value);
+     if(trim(strtolower($value[0]))=='features'){
+        echo '<div class="info-item">'.$value[0].'</div><br>';
+        foreach (explode(" ",$value[1]) as $fvalue) {
+          if(trim($fvalue))
+          echo '<div class="info-item">&nbsp;</div>'.$fvalue.'<br>';
+        }
+     } else {
+        echo '<div class="info-item">'.$value[0].'</div>'.$value[1].'</br>';
+     }
+    }
+ #   return $html;
+
 }
 
 /**
@@ -101,8 +86,8 @@ function DisplaySystem(){
     <div class="panel-body">
       <h4>System Information</h4>
       <div class="info-item">Hostname</div> <?php echo $hostname ?></br>
-      <div class="info-item">Pi Revision</div> <?php echo RPiVersion() ?></br>
       <div class="info-item">Uptime</div>   <?php echo $uptime ?></br></br>
+      <?php ChipVersion() ?>
       <div class="info-item">Memory Used</div>
         <div class="progress">
         <div class="progress-bar progress-bar-<?php echo $memused_status ?> progress-bar-striped active"

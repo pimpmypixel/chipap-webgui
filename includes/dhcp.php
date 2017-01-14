@@ -15,7 +15,7 @@ function DisplayDHCPConfig() {
       $config = 'interface='.$_POST['interface'].PHP_EOL
         .'dhcp-range='.$_POST['RangeStart'].','.$_POST['RangeEnd'].',255.255.255.0,'.$_POST['RangeLeaseTime'].''.$_POST['RangeLeaseTimeUnits'];
       exec( 'echo "'.$config.'" > /tmp/dhcpddata',$temp );
-      system( 'sudo cp /tmp/dhcpddata '. RASPI_DNSMASQ_CONFIG, $return );
+      system( 'sudo cp /tmp/dhcpddata '. CHIP_DNSMASQ_CONFIG, $return );
 
       if( $return == 0 ) {
         $status->addMessage('Dnsmasq configuration updated successfully', 'success');
@@ -70,7 +70,7 @@ function DisplayDHCPConfig() {
     }
   }
 
-  exec( 'cat '. RASPI_DNSMASQ_CONFIG, $return );
+  exec( 'cat '. CHIP_DNSMASQ_CONFIG, $return );
   $conf = ParseConfig($return);
   $arrRange = explode( ",", $conf['dhcp-range'] );
   $RangeStart = $arrRange[0];
@@ -190,7 +190,7 @@ function DisplayDHCPConfig() {
             <tbody>
               <tr>
                 <?php
-                exec( 'cat ' . RASPI_DNSMASQ_LEASES, $leases );
+                exec( 'cat ' . CHIP_DNSMASQ_LEASES, $leases );
                 foreach( $leases as $lease ) {
                   $lease_items = explode(' ', $lease);
                   foreach( $lease_items as $lease_item ) {

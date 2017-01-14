@@ -45,7 +45,7 @@ function DisplayHostAPDConfig(){
     }
   }
 
-  exec( 'cat '. RASPI_HOSTAPD_CONFIG, $return );
+  exec( 'cat '. CHIP_HOSTAPD_CONFIG, $return );
   exec( 'pidof hostapd | wc -l', $hostapdstatus);
 
   if( $hostapdstatus[0] == 0 ) {
@@ -195,7 +195,7 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $status)
     if ($tmp_file = fopen('/tmp/hostapddata', 'w')) {
       // Fixed values
       fwrite($tmp_file, 'driver=nl80211'.PHP_EOL);
-      fwrite($tmp_file, 'ctrl_interface='.RASPI_HOSTAPD_CTRL_INTERFACE.PHP_EOL);
+      fwrite($tmp_file, 'ctrl_interface='.CHIP_HOSTAPD_CTRL_INTERFACE.PHP_EOL);
       fwrite($tmp_file, 'ctrl_interface_group=0'.PHP_EOL);
       fwrite($tmp_file, 'beacon_int=100'.PHP_EOL);
       fwrite($tmp_file, 'auth_algs=1'.PHP_EOL);
@@ -211,7 +211,7 @@ function SaveHostAPDConfig($wpa_array, $enc_types, $modes, $interfaces, $status)
       fwrite($tmp_file, 'country_code='.$_POST['country_code'].PHP_EOL);
       fclose($tmp_file);
 
-      system( "sudo cp /tmp/hostapddata " . RASPI_HOSTAPD_CONFIG, $return );
+      system( "sudo cp /tmp/hostapddata " . CHIP_HOSTAPD_CONFIG, $return );
       if( $return == 0 ) {
         $status->addMessage('Wifi Hotspot settings saved', 'success');
       } else {

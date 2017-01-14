@@ -13,7 +13,7 @@ function DisplayAuthConfig($username, $password){
         } else if ($new_username == '') {
           $status->addMessage('Username must not be empty', 'danger');
         } else {
-          if ($auth_file = fopen(RASPI_ADMIN_DETAILS, 'w')) {
+          if ($auth_file = fopen(CHIP_ADMIN_DETAILS, 'w')) {
             fwrite($auth_file, $new_username.PHP_EOL);
             fwrite($auth_file, password_hash($_POST['newpass'], PASSWORD_BCRYPT).PHP_EOL);
             fclose($auth_file);
